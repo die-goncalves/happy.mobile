@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import mapMarker from '../images/map-marker.png';
 import api from '../services/api';
@@ -20,11 +20,11 @@ export default function OrphanagesMap() {
     const navigation = useNavigation();
 
     //console.log(orphanages);
-    useEffect(()=>{
+    useFocusEffect(()=>{
       api.get('orphanages').then(response => {
           setOrphanages(response.data);
       });
-    }, []);
+    });
 
     function handleNavigateToOrphanageDetails(id: number){
       navigation.navigate('OrphanageDetails', { id });
